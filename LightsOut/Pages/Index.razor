@@ -1,0 +1,57 @@
+﻿@page "/"
+@using Models
+
+<h1 class="text-center">Lights Out</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm">
+            <div class="container-fluid text-center">
+                @foreach (var row in LightsOutGrid.Lights)
+                {
+                    foreach (var light in row)
+                    {
+                        <button disabled="@(!LightsOutGrid.GameStarted)" class="btn @( light.On ? "led-green" : "green" )" @onclick="() => LightClicked(light)"></button>
+                    }
+                    <div style="margin-top:2px;"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:10px;"></div>
+
+<div class="text-center">
+    <button @onclick="StartGame" class="btn @(LightsOutGrid.GameStarted ? "btn-danger" : "btn-primary")">@(LightsOutGrid.GameStarted ? "Restart" : "Start")</button>
+</div>
+
+<div style="margin-top:10px;"></div>
+
+@if (LightsOutGrid.Complete)
+{
+    <h1 class="text-center" style="color:forestgreen">LIGHTS OUT!</h1>
+}
+
+
+@code
+{
+    private LightsOutGrid LightsOutGrid { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LightsOutGrid = new LightsOutGrid();
+    }
+
+    private void LightClicked(Light light)
+    {
+        LightsOutGrid.ToggleLights(light);
+    }
+
+    private void StartGame()
+    {
+        LightsOutGrid.Start();
+        //LightsOutGrid.StartOneClickFinish();
+    }
+
+}
