@@ -35,7 +35,7 @@ namespace LightsOut.Tests
         }
 
         [TestMethod]
-        public void GameIsNotComplete_ReturnsFalse()
+        public void StartGame_GameIsNotComplete_ReturnsFalse()
         {
             var lightsOutGrid = new LightsOutGrid();
             lightsOutGrid.Start();
@@ -54,9 +54,34 @@ namespace LightsOut.Tests
             // grab the light to be clicked that should trigger a win condition.
             var light = lightsOutGrid.Lights[0][0];
 
+            // "click" the light.
             lightsOutGrid.ToggleLights(light);
 
             Assert.IsTrue(lightsOutGrid.Complete);
+        }
+
+        [TestMethod]
+        public void AdjacentLightsToggle_ReturnsTrue()
+        {
+            var lightsOutGrid = new LightsOutGrid();
+            
+            // get the middle light.
+            var middleLight = lightsOutGrid.Lights[2][2];
+            // "click" the light.
+            lightsOutGrid.ToggleLights(middleLight);
+
+            // [0][0] [0][1] [0][2] [0][3] [0][4]
+            // [1][0] [1][1] [1][2] [1][3] [1][4]
+            // [2][0] [2][1] [2][2] [2][3] [2][4]
+            // [3][0] [3][1] [3][2] [3][3] [3][4]
+            // [4][0] [4][1] [4][2] [4][3] [4][4]
+
+            // the middle light and its adjacent lights should now be on.
+            Assert.IsTrue(lightsOutGrid.Lights[2][2].On); // middle light
+            Assert.IsTrue(lightsOutGrid.Lights[1][2].On); // above
+            Assert.IsTrue(lightsOutGrid.Lights[3][2].On); // below
+            Assert.IsTrue(lightsOutGrid.Lights[2][1].On); // left
+            Assert.IsTrue(lightsOutGrid.Lights[2][3].On); // right
         }
     }
 }

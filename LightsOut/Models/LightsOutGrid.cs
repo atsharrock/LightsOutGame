@@ -11,7 +11,7 @@ namespace LightsOut.Models
     public class LightsOutGrid
     {
         /// <summary>
-        /// The Size of the Grid
+        /// The Size of the Grid. Default is 5.
         /// </summary>
         public int Size { get; set; }
 
@@ -75,7 +75,7 @@ namespace LightsOut.Models
         }
 
         /// <summary>
-        /// Starts the game by turning some lights on.
+        /// Resets the grid and starts the game by turning some lights on.
         /// </summary>
         public void Start()
         {
@@ -95,7 +95,7 @@ namespace LightsOut.Models
         }
 
         /// <summary>
-        /// Resets the game. Completed is false and all the lights in the grid are switched off.
+        /// Resets the game. Completed is set to false and all the lights in the grid are switched off.
         /// </summary>
         public void Reset()
         {
